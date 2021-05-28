@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/avatar09-128x128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/avatar09-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/avatar09-16x16.ong">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.loli.net/css?family=Noto Serif SC:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.studyfather7.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":true,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="因为脑子犯抽花了50块钱买了一个域名，于是生起弄一个博客的心思。本着无事找事也要找简单的事做的原则，最终敲定用 Hexo+Github Pages 搭建。至于为什么不用Gitee，其实一开始就是想用码云来的，毕竟人家服务器在国内，这不随便整一个花里胡哨的界面上去都行。但是！Gitee Pages不支持自定义域名，现在如果要使用这个功能得交钱，而我已经买了个域名了。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="用 Hexo 和 Github Pages 搭建个人博客">
+<meta property="og:url" content="http://www.studyfather7.com/2021/02/06/%E7%94%A8-Hexo-%E5%92%8C-Github-Pages-%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/index.html">
+<meta property="og:site_name" content="养狗的猫">
+<meta property="og:description" content="因为脑子犯抽花了50块钱买了一个域名，于是生起弄一个博客的心思。本着无事找事也要找简单的事做的原则，最终敲定用 Hexo+Github Pages 搭建。至于为什么不用Gitee，其实一开始就是想用码云来的，毕竟人家服务器在国内，这不随便整一个花里胡哨的界面上去都行。但是！Gitee Pages不支持自定义域名，现在如果要使用这个功能得交钱，而我已经买了个域名了。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://www.studyfather7.com/2021/02/06/%E7%94%A8-Hexo-%E5%92%8C-Github-Pages-%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/image-20210206153446626.png">
+<meta property="og:image" content="http://www.studyfather7.com/2021/02/06/%E7%94%A8-Hexo-%E5%92%8C-Github-Pages-%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/image-20210206160043028.png">
+<meta property="og:image" content="http://www.studyfather7.com/2021/02/06/%E7%94%A8-Hexo-%E5%92%8C-Github-Pages-%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/image-20210206161955422.png">
+<meta property="og:image" content="http://www.studyfather7.com/2021/02/06/%E7%94%A8-Hexo-%E5%92%8C-Github-Pages-%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/image-20210206162151216.png">
+<meta property="og:image" content="http://www.studyfather7.com/2021/02/06/%E7%94%A8-Hexo-%E5%92%8C-Github-Pages-%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/image-20210206162239425.png">
+<meta property="og:image" content="http://www.studyfather7.com/2021/02/06/%E7%94%A8-Hexo-%E5%92%8C-Github-Pages-%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/image-20210206191605520.png">
+<meta property="og:image" content="http://www.studyfather7.com/2021/02/06/%E7%94%A8-Hexo-%E5%92%8C-Github-Pages-%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/image-20210206184138958.png">
+<meta property="og:image" content="http://www.studyfather7.com/2021/02/06/%E7%94%A8-Hexo-%E5%92%8C-Github-Pages-%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/image-20210206163437473.png">
+<meta property="og:image" content="http://www.studyfather7.com/2021/02/06/%E7%94%A8-Hexo-%E5%92%8C-Github-Pages-%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/image-20210206164644129.png">
+<meta property="og:image" content="http://www.studyfather7.com/2021/02/06/%E7%94%A8-Hexo-%E5%92%8C-Github-Pages-%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/image-20210206164809303.png">
+<meta property="og:image" content="http://www.studyfather7.com/2021/02/06/%E7%94%A8-Hexo-%E5%92%8C-Github-Pages-%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/image-20210206184715678.png">
+<meta property="og:image" content="http://www.studyfather7.com/2021/02/06/%E7%94%A8-Hexo-%E5%92%8C-Github-Pages-%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/image-20210206185247477.png">
+<meta property="og:image" content="http://www.studyfather7.com/2021/02/06/%E7%94%A8-Hexo-%E5%92%8C-Github-Pages-%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/image-20210206185356984.png">
+<meta property="og:image" content="http://www.studyfather7.com/2021/02/06/%E7%94%A8-Hexo-%E5%92%8C-Github-Pages-%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/image-20210206185527171.png">
+<meta property="article:published_time" content="2021-02-06T10:28:54.000Z">
+<meta property="article:modified_time" content="2021-03-23T02:19:53.487Z">
+<meta property="article:author" content="养狗的猫">
+<meta property="article:tag" content="个人博客">
+<meta property="article:tag" content="Hexo">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.studyfather7.com/2021/02/06/%E7%94%A8-Hexo-%E5%92%8C-Github-Pages-%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/image-20210206153446626.png">
+
+<link rel="canonical" href="http://www.studyfather7.com/2021/02/06/%E7%94%A8-Hexo-%E5%92%8C-Github-Pages-%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>用 Hexo 和 Github Pages 搭建个人博客 | 养狗的猫</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">养狗的猫</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.studyfather7.com/2021/02/06/%E7%94%A8-Hexo-%E5%92%8C-Github-Pages-%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="养狗的猫">
+      <meta itemprop="description" content="看不见我，看不见我">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="养狗的猫">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          用 Hexo 和 Github Pages 搭建个人博客
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-02-06 18:28:54" itemprop="dateCreated datePublished" datetime="2021-02-06T18:28:54+08:00">2021-02-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-03-23 10:19:53" itemprop="dateModified" datetime="2021-03-23T10:19:53+08:00">2021-03-23</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%98%AF%E4%B8%AA%E6%95%99%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">算是个教程</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>因为脑子犯抽花了50块钱买了一个域名，于是生起弄一个博客的心思。本着无事找事也要找简单的事做的原则，最终敲定用 Hexo+Github Pages 搭建。至于为什么不用Gitee，其实一开始就是想用码云来的，毕竟人家服务器在国内，这不随便整一个花里胡哨的界面上去都行。但是！<strong>Gitee Pages不支持自定义域名</strong>，现在如果要使用这个功能得交钱，而我已经买了个域名了。</p>
+<a id="more"></a>
+
+<h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><ul>
+<li>Hexo</li>
+</ul>
+<p>Hexo 是一个快速、简洁且高效的博客框架。Hexo 使用 <a target="_blank" rel="noopener" href="http://daringfireball.net/projects/markdown/">Markdown</a>（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。</p>
+<ul>
+<li>Github Pages</li>
+</ul>
+<p>GitHub Page一般多用作托管个人的静态网站，现在也很多人也用来它来搭建私人博客，省去了购买服务器、域名等等一系列复杂的操作，当然前提是你要是一名Github用户，并创建了一个托管库。</p>
+<p>接下来是复盘我一整个的搭建流程，应该是会很啰嗦，在此先提供 <a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/">官方文档</a> 。作者好像是台湾人，对中文支持友好。因为使用Hexo框架需要用到 Git 和 Node.js，若你对二者一无所知，又想对其做一定了解，这里盲推 <a target="_blank" rel="noopener" href="https://gitee.com/help#article-header0">Gitee帮助中心的快速开始</a> 和 <a target="_blank" rel="noopener" href="https://www.runoob.com/nodejs/nodejs-npm.html">菜鸟教程的Node.js教程-NPM的使用介绍</a> 。</p>
+<h3 id="快速开始-Hexo的安装及初步使用"><a href="#快速开始-Hexo的安装及初步使用" class="headerlink" title="快速开始-Hexo的安装及初步使用"></a>快速开始-Hexo的安装及初步使用</h3><p>本人使用 windows 系统，在已安装好 Git 和 Node.js 后，在桌面新建一个blog文件夹，点击文件夹，右键菜单点击Git bash here，输入命令，安装 Hexo 。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
+<p>安装好 Hexo 后，在此文件夹初始化 Hexo 。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo init</span><br></pre></td></tr></table></figure>
+<p>文件目录如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── _config.yml</span><br><span class="line">├── package.json</span><br><span class="line">├── scaffolds</span><br><span class="line">├── source</span><br><span class="line">|   ├── _drafts</span><br><span class="line">|   └── _posts</span><br><span class="line">└── themes</span><br></pre></td></tr></table></figure>
+<p>其中 _config.yml 是配置文件，source 是生成静态文件的文件夹，themes 是主题包。</p>
+<p>之后，根据配置文件生成静态文件，这里并未做配置，即默认配置。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo g</span><br></pre></td></tr></table></figure>
+<p>部署到本地服务器。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo s</span><br></pre></td></tr></table></figure>
+<p>服务器默认访问地址为： <a target="_blank" rel="noopener" href="http://localhost:4000/">http://localhost:4000/</a> ，如图所示。</p>
+<img src="/2021/02/06/%E7%94%A8-Hexo-%E5%92%8C-Github-Pages-%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/image-20210206153446626.png" class="" title="image-20210206153446626">
+
+<p>如若想对该页面进行修改，您可以在 _config.yml 中修改大部分的配置。详情请看 <a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/configuration">配置</a> ，这里不作出详细说明，只提一点，先把语言改成中文。</p>
+<h3 id="关于-Git-的配置"><a href="#关于-Git-的配置" class="headerlink" title="关于 Git 的配置"></a>关于 Git 的配置</h3><p>省去注册用户的流程，在主页点击创建一个新的仓库，如图。在这里，<strong>Repository name</strong> 务必为 <strong>用户名.github.io</strong> 自动开启Github Pages ，例如，Studyfaher7.github.io 。仓库不可设定为 Private （私有），不然无法开启 Github Pages 。</p>
+<img src="/2021/02/06/%E7%94%A8-Hexo-%E5%92%8C-Github-Pages-%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/image-20210206160043028.png" class="">
+
+<p>配置 SSH 密钥，实现 git 操作同步本地库到 Github 代码库。打开自己创建的 blog 文件夹，右键菜单点击 Git bash here 。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;your email@example.com&quot;	&#x2F;&#x2F; 填写自己邮箱地址, 例如，studyfather7@163.com</span><br></pre></td></tr></table></figure>
+<p>出现内容如图，一路回车即可：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Generating public&#x2F;private rsa key pair.</span><br><span class="line">Enter file in which to save the key (&#x2F;c&#x2F;Users&#x2F;Studyfather7&#x2F;.ssh&#x2F;id_rsa):	&#x2F;&#x2F; 回车即可</span><br><span class="line">Enter passphrase (empty for no passphrase): 	&#x2F;&#x2F; 回车即可</span><br><span class="line">Enter same passphrase again:	&#x2F;&#x2F; 回车即可</span><br></pre></td></tr></table></figure>
+<p>运行以下命令，将<strong>公钥的内容复制到系统粘贴板</strong>上。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">clip &lt; ~&#x2F;.ssh&#x2F;id_rsa.pub</span><br></pre></td></tr></table></figure>
+<p>之后，登录 Github 主页，个人头像弹出菜单，点击 Settings 。</p>
+<img src="/2021/02/06/%E7%94%A8-Hexo-%E5%92%8C-Github-Pages-%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/image-20210206161955422.png" class="" title="image-20210206161955422">
+
+<p>侧栏菜单 Account settings ，点击 SSH and GPG keys 。</p>
+<img src="/2021/02/06/%E7%94%A8-Hexo-%E5%92%8C-Github-Pages-%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/image-20210206162151216.png" class="" title="image-20210206162151216">
+
+<p>点击 New SSH key ，添加 SSH 密钥。</p>
+<img src="/2021/02/06/%E7%94%A8-Hexo-%E5%92%8C-Github-Pages-%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/image-20210206162239425.png" class="" title="image-20210206162239425">
+
+<p>如图，title 名字任起，将密钥粘贴至 Key 框中即可，点击 Add SSH key 添加密钥。</p>
+<img src="/2021/02/06/%E7%94%A8-Hexo-%E5%92%8C-Github-Pages-%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/image-20210206191605520.png" class="" title="image-20210206191605520">
+
+<p>在本地测试，输入以下命令。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure>
+<p>我这里显示连接成功，但提出警告信息，可以不用管，正常使用。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Hi Studyfather7! You&#39;ve successfully authenticated, but GitHub does not provide shell access.</span><br></pre></td></tr></table></figure>
+<p>至此告一段落。</p>
+<h3 id="部署到-Github-Pages"><a href="#部署到-Github-Pages" class="headerlink" title="部署到 Github Pages"></a>部署到 Github Pages</h3><p>登录 GitHub ，打开自己新建的仓库。复制仓库的 SSH 链接，例如， <a href="mailto:&#103;&#105;&#116;&#64;&#x67;&#105;&#116;&#104;&#117;&#x62;&#46;&#x63;&#x6f;&#x6d;">&#103;&#105;&#116;&#64;&#x67;&#105;&#116;&#104;&#117;&#x62;&#46;&#x63;&#x6f;&#x6d;</a>:Studyfather7/Studyfather7.github.io.git 。</p>
+<img src="/2021/02/06/%E7%94%A8-Hexo-%E5%92%8C-Github-Pages-%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/image-20210206184138958.png" class="">
+
+<p>打开 blog 文件夹，找到 _config.yml 文件，点击打开，末尾编辑信息如下。</p>
+<img src="/2021/02/06/%E7%94%A8-Hexo-%E5%92%8C-Github-Pages-%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/image-20210206163437473.png" class="" title="image-20210206163437473">
+
+<p>保存退出后，右键菜单点击 Git bash here ，输入以下命令，提交本地静态文件至代码库。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo g -d</span><br></pre></td></tr></table></figure>
+<p>若显示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ERROR Deployer not found: git</span><br></pre></td></tr></table></figure>
+<p>则安装  hexo-deployer-git 依赖。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
+<p>重新执行 hexo g -d 即可。你的博客地址为:  https://用户名.github.io ，例如，我的是 <a target="_blank" rel="noopener" href="https://studyfather7.github.io/">https://studyfather7.github.io</a> 。另可在自己 Github 库中，点击 Setings 。</p>
+<img src="/2021/02/06/%E7%94%A8-Hexo-%E5%92%8C-Github-Pages-%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/image-20210206164644129.png" class="">
+
+<p>下滑找到 Github Pages ，如图所示，部署完成后会提示并告知你的博客网址。警告信息忽略不计。</p>
+<img src="/2021/02/06/%E7%94%A8-Hexo-%E5%92%8C-Github-Pages-%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/image-20210206164809303.png" class="" title="image-20210206164809303">
+
+<h3 id="自定义域名"><a href="#自定义域名" class="headerlink" title="自定义域名"></a>自定义域名</h3><p>首先，ping 通自己默认的博客网址，得到如图所示的 IP 地址，复制。</p>
+<img src="/2021/02/06/%E7%94%A8-Hexo-%E5%92%8C-Github-Pages-%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/image-20210206184715678.png" class="">
+
+<p>我是在阿里买的域名（**审核失败了）。打开域名控制台，点击解析。可以手动添加记录，这里我点击新手引导。</p>
+<img src="/2021/02/06/%E7%94%A8-Hexo-%E5%92%8C-Github-Pages-%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/image-20210206185247477.png" class="" title="image-20210206185247477">
+
+<p>粘贴自己复制的 IP 地址，点击确定即可。</p>
+<img src="/2021/02/06/%E7%94%A8-Hexo-%E5%92%8C-Github-Pages-%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/image-20210206185356984.png" class="" title="image-20210206185356984">
+
+<p>最后打开 blog 文件夹，在 souce 文件夹下创建一个名为 CNAME 的文件，其中填写自己的个人域名，以我为例，可以是 studyfather7.com 或者是 <a target="_blank" rel="noopener" href="http://www.studyfather7.com,我填写的是/">www.studyfather7.com，我填写的是</a> <a href="http://www.studyfather7.com/">www.studyfather7.com</a> ，则当我浏览器输入 studyfather7.com 或者 studyfather7.github.io 跳转到个人博客页面，最后都会解析为 <a href="http://www.studyfather7.com/">www.studyfather7.com</a>  。</p>
+<img src="/2021/02/06/%E7%94%A8-Hexo-%E5%92%8C-Github-Pages-%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/image-20210206185527171.png" class="" title="image-20210206185527171">
+
+<p>最后 hexo g -d 提交即可。</p>
+<h3 id="如何发布文章"><a href="#如何发布文章" class="headerlink" title="如何发布文章"></a>如何发布文章</h3><p>具体请看 <a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/writing">官方文档-写作</a> 。这里不作说明。这里主要说一下遇到的问题。</p>
+<ul>
+<li>新建文章的时候，若标题有空格需要用引号括起来，这点在官方文档里有说。</li>
+<li>因为是采用 Markdown 解析文档，若你不熟悉 Markdown 语法需要找一篇教程看一下，这里推荐 <a target="_blank" rel="noopener" href="https://www.runoob.com/markdown/md-tutorial.html">菜鸟教程-Markdown 教程</a> ，并且推荐使用 <a target="_blank" rel="noopener" href="https://www.typora.io/">Typora</a> 编辑器。</li>
+<li>当你在遇到发布的文章<strong>没有图片显示</strong>的时候，可以看一下 <a target="_blank" rel="noopener" href="https://www.cnblogs.com/cocowool/p/hexo-image-link.html">这篇博客</a> 。</li>
+</ul>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>奉劝先不要整主题，基本功能搞好先，得不偿失，当然你有时间随便瞎搞也成。本着一篇博文不宜过长的原则，就不详细说如何设置主题了。有什么问题欢迎提出来，非常乐意解答。</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>养狗的猫
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://www.studyfather7.com/2021/02/06/%E7%94%A8-Hexo-%E5%92%8C-Github-Pages-%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/" title="用 Hexo 和 Github Pages 搭建个人博客">http://www.studyfather7.com/2021/02/06/用-Hexo-和-Github-Pages-搭建个人博客/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/" rel="tag"># 个人博客</a>
+              <a href="/tags/Hexo/" rel="tag"># Hexo</a>
+          </div>
+
+        
+
+
+        
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B-Hexo%E7%9A%84%E5%AE%89%E8%A3%85%E5%8F%8A%E5%88%9D%E6%AD%A5%E4%BD%BF%E7%94%A8"><span class="nav-number">2.</span> <span class="nav-text">快速开始-Hexo的安装及初步使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E-Git-%E7%9A%84%E9%85%8D%E7%BD%AE"><span class="nav-number">3.</span> <span class="nav-text">关于 Git 的配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%83%A8%E7%BD%B2%E5%88%B0-Github-Pages"><span class="nav-number">4.</span> <span class="nav-text">部署到 Github Pages</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9F%9F%E5%90%8D"><span class="nav-number">5.</span> <span class="nav-text">自定义域名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%8F%91%E5%B8%83%E6%96%87%E7%AB%A0"><span class="nav-number">6.</span> <span class="nav-text">如何发布文章</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">7.</span> <span class="nav-text">总结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="养狗的猫"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">养狗的猫</p>
+  <div class="site-description" itemprop="description">看不见我，看不见我</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">1</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">养狗的猫</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/medium-zoom@1/dist/medium-zoom.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'e9f70af2f7de73e43c82',
+      clientSecret: '9c24edcb64d596f0c8a3299e623c62470b5e85fe',
+      repo        : 'blog-comments',
+      owner       : 'studyfather7',
+      admin       : ['studyfather7'],
+      id          : '8bdb9ef3ecbe4660a50fdfafe79d55d1',
+        language: 'zh-CN',
+      distractionFreeMode: false
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+</body>
+</html>
